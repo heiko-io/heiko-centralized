@@ -1,0 +1,4 @@
+name = "basic_test"
+runtime = "python3"
+cmds = ["python3 test.py"]
+init = []

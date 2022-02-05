@@ -1,11 +1,13 @@
 package rpc
 
+import "net/rpc"
+
 var Runtime = map[string]string{
-	"node": "resources/nix/node.nix",
+	"node":    "resources/nix/node.nix",
 	"python2": "resources/nix/python.nix",
 	"python3": "resources/nix/python3.nix",
-	"go": "resources/nix/go.nix",
-	"rust": "resources/nix/rust.nix",
+	"go":      "resources/nix/go.nix",
+	"rust":    "resources/nix/rust.nix",
 }
 
 type Job struct {
@@ -14,4 +16,9 @@ type Job struct {
 	Cmd     []string
 	Init    []string
 	Name    string
+}
+
+type RpcController struct {
+	Queue  chan Job
+	Client *rpc.Client
 }
