@@ -1,4 +1,4 @@
-package main
+package controller
 
 import (
 	"fmt"
@@ -9,15 +9,15 @@ import (
 	heiko_rpc "github.com/heiko-io/heiko/internal/rpc"
 )
 
-func main() {
-	fmt.Println("Hello from the agent!")
+func Start() {
+	fmt.Println("Hello from the controller!")
 	pack, err := ioutil.ReadFile("resources/nix/go.nix")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 	job := heiko_rpc.Job{
 		Package: pack,
-		Cmd:     "nix-shell go.nix",
+		Cmd:     []string{"nix-shell go.nix"},
 		Runtime: "nix",
 	}
 
@@ -26,10 +26,10 @@ func main() {
 		log.Fatal("dialing:", err)
 	}
 
-    var result string
-    err = client.Call("Job.SubmitJob", job, &result)
-    if err != nil {
-        log.Fatal("submit job error:", err)
-    }
-    fmt.Println(result)
+	var result string
+	err = client.Call("Job.SubmitJob", job, &result)
+	if err != nil {
+		log.Fatal("submit job error:", err)
+	}
+	fmt.Println(result)
 }
