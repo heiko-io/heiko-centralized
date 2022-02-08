@@ -2,7 +2,6 @@ package controller
 
 import (
 	"fmt"
-	"math/rand"
 	"net/http"
 	"net/rpc"
 	"os"
@@ -36,16 +35,8 @@ func listen(jobs *heiko_rpc.RpcController) {
 func schedule_jobs(jobs *heiko_rpc.RpcController) {
 	for {
 		job := <-jobs.Queue
-		if find_free_node() {
-			var reply string
-			jobs.Client.Call("Job.RunJob", job, &reply)
-			fmt.Println(reply)
-		}
+		var reply string
+		jobs.Client.Call("RpcController.RunJob", job, &reply)
+		fmt.Println(reply)
 	}
-}
-
-// should find if a node is free and return that
-// for now it's a hack that returns 1 / 0
-func find_free_node() bool {
-	return rand.Int() % 2 == 0
 }

@@ -1,7 +1,6 @@
 package client
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -24,8 +23,8 @@ func ReadConfig(dir string) heiko_rpc.Job {
 		log.Fatalln(err)
 		os.Exit(1)
 	}
-	fmt.Println(conf.Runtime)
-	fmt.Println(conf)
+	// fmt.Println(conf.Runtime)
+	// fmt.Println(conf)
 	if _, ok := heiko_rpc.Runtime[conf.Runtime]; !ok {
 		log.Fatalln("Invalid runtime! Choose one of node, python, python3, go or rust")
 		os.Exit(1)

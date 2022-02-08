@@ -2,8 +2,10 @@ package rpc
 
 import "fmt"
 
-func (t *Job) RunJob(job *Job, reply *string) error {
-	*reply = fmt.Sprintf("Running: Job { Runtime: %s, Cmd: %s }", job.Cmd, job.Runtime)
+func (t *RpcController) RunJob(job *Job, reply *string) error {
+	*reply = fmt.Sprintf("Running: Job { Name: %s, Runtime: %s, Cmd: %s }",
+		job.Name, job.Cmd, job.Runtime)
+	t.Queue <- *job
 	return nil
 }
 

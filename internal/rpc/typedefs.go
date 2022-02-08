@@ -1,14 +1,12 @@
 package rpc
 
-import "net/rpc"
+import (
+	"net/rpc"
+	"github.com/heiko-io/heiko/resources/nix"
+)
 
-var Runtime = map[string]string{
-	"node":    "resources/nix/node.nix",
-	"python2": "resources/nix/python.nix",
-	"python3": "resources/nix/python3.nix",
-	"go":      "resources/nix/go.nix",
-	"rust":    "resources/nix/rust.nix",
-}
+
+var Runtime = nix.GetRuntimes()
 
 type Job struct {
 	Runtime string
