@@ -56,6 +56,7 @@ func compress(src string, buf io.Writer) error {
 			return err
 		}
 	
+		// TODO: fix naming convention
 		og_path := path
 		if strings.HasPrefix(path, src) {
 			og_path = path[len(src):]

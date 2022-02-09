@@ -26,6 +26,7 @@ func ReadConfig(dir string) heiko_rpc.Job {
 	// fmt.Println(conf.Runtime)
 	// fmt.Println(conf)
 	if _, ok := heiko_rpc.Runtime[conf.Runtime]; !ok {
+		// TODO: construct this message by iterating over the map?
 		log.Fatalln("Invalid runtime! Choose one of node, python, python3, go or rust")
 		os.Exit(1)
 	}
