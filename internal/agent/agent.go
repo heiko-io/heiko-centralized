@@ -89,6 +89,7 @@ func createRunScript(job heiko_rpc.Job, path string) {
 
 	defer file.Close()
 
+	// TODO: the same call to WriteString and err handling is repeated many times here
 	_, err = file.WriteString("#!/bin/bash\n")
 	if err != nil {
 		log.Fatalln("Failed to write to run file: ", err)
@@ -131,10 +132,12 @@ func createRunScript(job heiko_rpc.Job, path string) {
 
 	file.Sync()
 	
+	// TODO: maybe there's a better way to set exec perms?
 	cmd := exec.Command("chmod", "+x", "run.sh")
 	cmd.Dir = path
 	out, err := cmd.CombinedOutput()
 	if err != nil {
+		// TODO: fix error message
 		log.Fatalln("Failed to run job: ", err, ": ", string(out))
 	}
 }
